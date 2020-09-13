@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class QuizCardBuilder {
@@ -68,4 +70,37 @@ public class QuizCardBuilder {
         frame.setSize(500, 600);
         frame.setVisible(true);
     }
+
+    // inner classes for action listeners
+
+    public class NextCardListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            QuizCard card = new QuizCard(question.getText(), answer.getText());
+            cardList.add(card);
+            clearCard;
+        }
+    }
+
+    public class SaveCardListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            QuizCard card = new QuizCard(question.getText(), answer.getText());
+            cardList.add(card);
+
+            //save file
+            JFileChooser fileSave = new JFileChooser();
+            fileSave.showSaveDialog(frame);
+            saveFile(fileSave.getSelectedFile());
+        }
+    }
+
+    public class NewMenuListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            cardList.clear();
+            clearCard;
+        }
+    }
+
 }
