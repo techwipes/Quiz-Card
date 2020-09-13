@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class QuizCardBuilder {
@@ -73,12 +77,12 @@ public class QuizCardBuilder {
 
     // inner classes for action listeners
 
-    public class NextCardListener implements ActionListener{
+    public class NextCardListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             QuizCard card = new QuizCard(question.getText(), answer.getText());
             cardList.add(card);
-            clearCard;
+            clearCard();
         }
     }
 
@@ -95,12 +99,31 @@ public class QuizCardBuilder {
         }
     }
 
-    public class NewMenuListener implements ActionListener{
+    public class NewMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             cardList.clear();
-            clearCard;
+            clearCard();
         }
     }
 
+    private void clearCard() {
+        question.setText("");
+        answer.setText("");
+        question.requestFocus();
+    }
+
+    private void saveFile(File file) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            for (QuizCard card : cardList) {
+                writer.write(card.getQuestion() + "/");
+                writer.write(card.getAnswer() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Couldn't write the cardList out");
+            e.printStackTrace();
+        }
+    }
 }
