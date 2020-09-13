@@ -86,7 +86,7 @@ public class QuizCardBuilder {
         }
     }
 
-    public class SaveCardListener implements ActionListener {
+    public class SaveMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             QuizCard card = new QuizCard(question.getText(), answer.getText());
